@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{289E9F26-4FD6-40E5-A3AC-7D7C831D9716}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackatonFiap.Donations.Domain", "src\HackatonFiap.Donations.Domain\HackatonFiap.Donations.Domain.csproj", "{CC4AA8FB-5635-4030-BFFC-807EB8AF09C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackatonFiap.Donations.Application", "src\HackatonFiap.Donations.Application\HackatonFiap.Donations.Application.csproj", "{9919BCB1-8169-48CA-95B4-12728D3E604F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackatonFiap.Donations.Infrastructure", "src\HackatonFiap.Donations.Infrastructure\HackatonFiap.Donations.Infrastructure.csproj", "{11859C6C-B9DE-47C0-AB16-BBC26235BC65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackatonFiap.Donations.API", "src\HackatonFiap.Donations.API\HackatonFiap.Donations.API.csproj", "{C837EB4C-B70A-4951-B910-CEC364C8952A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AF21C2D4-848D-4B12-B2CE-23ED4243A436}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackatonFiap.Donations.UnitTests", "tests\HackatonFiap.Donations.UnitTests\HackatonFiap.Donations.UnitTests.csproj", "{2282F52C-19E1-425F-93C8-39E5429A2959}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC4AA8FB-5635-4030-BFFC-807EB8AF09C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC4AA8FB-5635-4030-BFFC-807EB8AF09C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC4AA8FB-5635-4030-BFFC-807EB8AF09C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC4AA8FB-5635-4030-BFFC-807EB8AF09C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9919BCB1-8169-48CA-95B4-12728D3E604F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9919BCB1-8169-48CA-95B4-12728D3E604F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9919BCB1-8169-48CA-95B4-12728D3E604F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9919BCB1-8169-48CA-95B4-12728D3E604F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11859C6C-B9DE-47C0-AB16-BBC26235BC65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11859C6C-B9DE-47C0-AB16-BBC26235BC65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11859C6C-B9DE-47C0-AB16-BBC26235BC65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11859C6C-B9DE-47C0-AB16-BBC26235BC65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C837EB4C-B70A-4951-B910-CEC364C8952A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C837EB4C-B70A-4951-B910-CEC364C8952A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C837EB4C-B70A-4951-B910-CEC364C8952A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C837EB4C-B70A-4951-B910-CEC364C8952A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2282F52C-19E1-425F-93C8-39E5429A2959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2282F52C-19E1-425F-93C8-39E5429A2959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2282F52C-19E1-425F-93C8-39E5429A2959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2282F52C-19E1-425F-93C8-39E5429A2959}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CC4AA8FB-5635-4030-BFFC-807EB8AF09C1} = {289E9F26-4FD6-40E5-A3AC-7D7C831D9716}
+		{9919BCB1-8169-48CA-95B4-12728D3E604F} = {289E9F26-4FD6-40E5-A3AC-7D7C831D9716}
+		{11859C6C-B9DE-47C0-AB16-BBC26235BC65} = {289E9F26-4FD6-40E5-A3AC-7D7C831D9716}
+		{C837EB4C-B70A-4951-B910-CEC364C8952A} = {289E9F26-4FD6-40E5-A3AC-7D7C831D9716}
+		{2282F52C-19E1-425F-93C8-39E5429A2959} = {AF21C2D4-848D-4B12-B2CE-23ED4243A436}
+	EndGlobalSection
+EndGlobal
