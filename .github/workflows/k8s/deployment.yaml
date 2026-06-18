@@ -2,17 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: fcg-catalog
+  name: hackatonfiap-donations
   namespace: fcg
   labels:
-    app: fcg-catalog
+    app: hackatonfiap-donations
 
 spec:
   replicas: 2
 
   selector:
     matchLabels:
-      app: fcg-catalog
+      app: hackatonfiap-donations
 
   strategy:
     type: RollingUpdate
@@ -23,8 +23,12 @@ spec:
   template:
     metadata:
       labels:
-        app: fcg-catalog
+        app: hackatonfiap-donations
         azure.workload.identity/use: "true"
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "8080"
 
     spec:
       serviceAccountName: sa-fcg-catalog
@@ -38,12 +42,12 @@ spec:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
-              secretProviderClass: fcg-catalog-secrets
+              secretProviderClass: hackatonfiap-donations-secrets
 
       containers:
-        - name: fcg-catalog
+        - name: hackatonfiap-donations
 
-          image: fcgregistry.azurecr.io/fcg-catalog:latest
+          image: fcgregistry.azurecr.io/hackatonfiap-donations:latest
           imagePullPolicy: Always
 
           ports:
@@ -58,42 +62,42 @@ spec:
             - name: ASPNETCORE_ENVIRONMENT
               value: Production
 
-            - name: Redis__ConnectionString
+            - name: ConnectionStrings__Default
               valueFrom:
                 secretKeyRef:
-                  name: fcg-catalog-secret
-                  key: Redis__ConnectionString
+                  name: hackatonfiap-donations-secret
+                  key: ConnectionStrings__Default
 
-            - name: MongoDB__ConnectionString
+            - name: ServiceBus__ConnectionString
               valueFrom:
                 secretKeyRef:
-                  name: fcg-catalog-secret
-                  key: MongoDB__ConnectionString
+                  name: hackatonfiap-donations-secret
+                  key: ServiceBus__ConnectionString
 
-            - name: AzureSearch__Endpoint
+            - name: Cosmos__ConnectionString
               valueFrom:
                 secretKeyRef:
-                  name: fcg-catalog-secret
-                  key: AzureSearch__Endpoint
+                  name: hackatonfiap-donations-secret
+                  key: Cosmos__ConnectionString
 
-            - name: AzureSearch__ApiKey
+            - name: Jwt__Key
               valueFrom:
                 secretKeyRef:
-                  name: fcg-catalog-secret
-                  key: AzureSearch__ApiKey
+                  name: hackatonfiap-donations-secret
+                  key: Jwt__Key
 
           resources:
             requests:
               cpu: 50m
-              memory: 64Mi
+              memory: 96Mi
 
             limits:
               cpu: 500m
-              memory: 256Mi
+              memory: 384Mi
 
           readinessProbe:
             httpGet:
-              path: /health/ready
+              path: /ready
               port: 8080
 
             initialDelaySeconds: 30
@@ -103,7 +107,7 @@ spec:
 
           livenessProbe:
             httpGet:
-              path: /health/live
+              path: /health
               port: 8080
 
             initialDelaySeconds: 60
