@@ -74,6 +74,28 @@ public class PaymentResultHandlersTests
     }
 
     [Fact]
+    public async Task Approved_for_terminal_campaign_approves_donation_but_does_not_credit()
+    {
+        // Campanha encerrou (cancelada/expirada) entre o request e o resultado do pagamento.
+        var campaign = CampaignWithGoal(1000m);
+        campaign.Cancel();
+        var donation = PendingDonation(campaign.Id, 200m);
+        _processed.ExistsAsync(donation.Id).Returns(false);
+        _donations.GetByIdAsync(donation.Id).Returns(donation);
+        _campaigns.GetByIdAsync(campaign.Id).Returns(campaign);
+
+        var command = new ProcessPaymentApprovedCommand(donation.Id, campaign.Id, 200m, Guid.NewGuid(), donation.DonorId, "d@e.com", "D");
+        var result = await ApprovedHandler().Handle(command, CancellationToken.None);
+
+        result.IsSuccess.Should().BeTrue();
+        donation.Status.Should().Be(DonationStatus.Approved);   // o pagamento ocorreu -> doação aprovada
+        campaign.AmountRaised.Should().Be(0m);                  // campanha terminal não é creditada (invariante)
+        campaign.Status.Should().Be(CampaignStatus.Cancelled);
+        await _processed.Received(1).AddAsync(Arg.Any<ProcessedEvent>(), Arg.Any<CancellationToken>());
+        await _readStore.DidNotReceive().UpsertAsync(Arg.Any<CampaignReadModel>(), Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
     public async Task Approved_is_idempotent_when_already_processed()
     {
         var donationId = Guid.NewGuid();
