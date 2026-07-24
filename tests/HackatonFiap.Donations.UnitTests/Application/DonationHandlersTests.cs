@@ -2,6 +2,7 @@ using FluentAssertions;
 using HackatonFiap.Donations.Application.Abstractions;
 using HackatonFiap.Donations.Application.Donations.CreateDonation;
 using HackatonFiap.Donations.Application.Donations.GetDonationById;
+using HackatonFiap.Donations.Application.Donations.ListMyDonations;
 using HackatonFiap.Donations.Application.IntegrationEvents;
 using HackatonFiap.Donations.Domain.Entities;
 using HackatonFiap.Donations.Domain.Enums;
@@ -110,5 +111,19 @@ public class DonationHandlersTests
 
         result.IsFailure.Should().BeTrue();
         result.Error.Code.Should().Be("Donation.NotFound");
+    }
+
+    [Fact]
+    public async Task ListMine_returns_requesting_donor_donations()
+    {
+        var donorId = Guid.NewGuid();
+        var mine = Donation.Create(Guid.NewGuid(), 50m, PaymentMethod.Pix, donorId, "d@e.com", "D").Value;
+        _donations.ListByDonorAsync(donorId).Returns(new[] { mine });
+        var handler = new ListMyDonationsQueryHandler(_donations);
+
+        var result = await handler.Handle(new ListMyDonationsQuery(donorId), CancellationToken.None);
+
+        result.IsSuccess.Should().BeTrue();
+        result.Value.Should().ContainSingle().Which.Id.Should().Be(mine.Id);
     }
 }

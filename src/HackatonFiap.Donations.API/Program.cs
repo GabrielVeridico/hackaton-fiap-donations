@@ -9,6 +9,7 @@ using HackatonFiap.Donations.Application.Campaigns.ListCampaigns;
 using HackatonFiap.Donations.Application.Campaigns.UpdateCampaign;
 using HackatonFiap.Donations.Application.Donations.CreateDonation;
 using HackatonFiap.Donations.Application.Donations.GetDonationById;
+using HackatonFiap.Donations.Application.Donations.ListMyDonations;
 using HackatonFiap.Donations.Application.Donations.ProcessPaymentApproved;
 using HackatonFiap.Donations.Application.Donations.ProcessPaymentDeclined;
 using HackatonFiap.Donations.Application.Observability;
@@ -70,6 +71,7 @@ try
     builder.Services.AddScoped<ExpireDueCampaignsCommandHandler>();
     builder.Services.AddScoped<CreateDonationCommandHandler>();
     builder.Services.AddScoped<GetDonationByIdQueryHandler>();
+    builder.Services.AddScoped<ListMyDonationsQueryHandler>();
     builder.Services.AddScoped<ProcessPaymentApprovedCommandHandler>();
     builder.Services.AddScoped<ProcessPaymentDeclinedCommandHandler>();
     builder.Services.AddScoped<ListActiveCampaignsQueryHandler>();

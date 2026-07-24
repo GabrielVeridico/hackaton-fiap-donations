@@ -1,6 +1,7 @@
 using HackatonFiap.Donations.API.Common;
 using HackatonFiap.Donations.Application.Donations.CreateDonation;
 using HackatonFiap.Donations.Application.Donations.GetDonationById;
+using HackatonFiap.Donations.Application.Donations.ListMyDonations;
 using HackatonFiap.Donations.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,14 @@ public sealed class DonationsController : ControllerBase
 
     private readonly CreateDonationCommandHandler _create;
     private readonly GetDonationByIdQueryHandler _getById;
+    private readonly ListMyDonationsQueryHandler _listMine;
 
-    public DonationsController(CreateDonationCommandHandler create, GetDonationByIdQueryHandler getById)
+    public DonationsController(CreateDonationCommandHandler create, GetDonationByIdQueryHandler getById,
+        ListMyDonationsQueryHandler listMine)
     {
         _create = create;
         _getById = getById;
+        _listMine = listMine;
     }
 
     [HttpPost]
@@ -35,6 +39,13 @@ public sealed class DonationsController : ControllerBase
         }
 
         return Accepted(new { donationId = result.Value, status = "Pending" });
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> ListMine(CancellationToken cancellationToken)
+    {
+        var result = await _listMine.Handle(new ListMyDonationsQuery(User.GetUserId()), cancellationToken);
+        return Ok(result.Value);
     }
 
     [HttpGet("{id:guid}")]

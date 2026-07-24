@@ -17,7 +17,7 @@ public sealed class ListActiveCampaignsQueryHandler
         var campaigns = await _readStore.ListActiveAsync(cancellationToken);
         IReadOnlyList<TransparencyCampaignResponse> responses = campaigns
             .Select(c => new TransparencyCampaignResponse(
-                c.Title, c.Goal, c.AmountRaised,
+                c.Id, c.Title, c.Goal, c.AmountRaised,
                 c.Goal > 0m ? Math.Round(c.AmountRaised / c.Goal * 100m, 2) : 0m))
             .ToList();
 
