@@ -2,6 +2,8 @@
 
 Microsserviço **central** da plataforma **Conexão Solidária** (Hackathon FIAP PosTech). Concentra três frentes: **Campanhas** (CRUD + ciclo de vida), **Doações/Arrecadação** (saga coreografada com a PaymentAPI + consumer idempotente que consolida o valor arrecadado) e **Transparência** (leitura pública servida **só** do read model em Cosmos DB).
 
+> **Ecossistema (6 repos):** `donations` (este) · `users` · `payments` · `notifications` · `front` · `orchestration`. Mapa completo no [orchestration](https://github.com/GabrielVeridico/hackaton-fiap-orchestration#-ecossistema).
+
 - **.NET 8** / ASP.NET Core · **Clean Architecture** (Domain/Application/Infrastructure/API)
 - **CQRS** manual (handlers + `Result<T>`, sem MediatR)
 - **Persistência CQRS:** **EF Core 8 + SQL Server** (escrita, `HackatonFiapDonationsDb`) + **Cosmos DB** (read model do painel; fallback in-memory em Development)
